@@ -58,5 +58,37 @@
          </toolbar>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="eclipse_object_calisthenics_analyzer"
+            name="Calisthenics View">
+      </category>
+      <view
+            category="eclipse_object_calisthenics_analyzer"
+            class="com.chairbender.eclipse.object_calisthenics_analyzer.views.CalisthenicsView"
+            icon="icons/sample.gif"
+            id="com.chairbender.eclipse.object_calisthenics_analyzer.views.CalisthenicsView"
+            name="Calisthenics">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="com.chairbender.eclipse.object_calisthenics_analyzer.views.CalisthenicsView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.ProblemView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
 
 </plugin>

@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Javaparser-core
-Bundle-SymbolicName: javaparser-core
-Bundle-Version: 2.3.0
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: com.github.javaparser

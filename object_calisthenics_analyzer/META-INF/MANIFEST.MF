@@ -5,4 +5,5 @@ Bundle-SymbolicName: object_calisthenics_analyzer
 Bundle-Version: 1.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.chairbender.object_calisthenics_analyzer,
- com.chairbender.object_calisthenics_analyzer.violation
+ com.chairbender.object_calisthenics_analyzer.violation,
+ com.chairbender.object_calisthenics_analyzer.violation.model
