@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Sample Category"
+            id="eclipse_object_calisthenics_analyzer.commands.category">
+      </category>
+      <command
+            name="Sample Command"
+            categoryId="eclipse_object_calisthenics_analyzer.commands.category"
+            id="eclipse_object_calisthenics_analyzer.commands.sampleCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="eclipse_object_calisthenics_analyzer.commands.sampleCommand"
+            class="com.chairbender.eclipse.object_calisthenics_analyzer.ObjectCalisthenicsAnalyzerHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="eclipse_object_calisthenics_analyzer.commands.sampleCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               label="Sample Menu"
+               mnemonic="M"
+               id="eclipse_object_calisthenics_analyzer.menus.sampleMenu">
+            <command
+                  commandId="eclipse_object_calisthenics_analyzer.commands.sampleCommand"
+                  mnemonic="S"
+                  id="eclipse_object_calisthenics_analyzer.menus.sampleCommand">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="eclipse_object_calisthenics_analyzer.toolbars.sampleToolbar">
+            <command
+                  commandId="eclipse_object_calisthenics_analyzer.commands.sampleCommand"
+                  icon="icons/sample.gif"
+                  tooltip="Say hello world"
+                  id="eclipse_object_calisthenics_analyzer.toolbars.sampleCommand">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+
+</plugin>
