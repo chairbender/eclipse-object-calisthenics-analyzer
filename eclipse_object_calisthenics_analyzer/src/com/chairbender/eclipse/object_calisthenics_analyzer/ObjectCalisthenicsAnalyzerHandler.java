@@ -1,5 +1,7 @@
 package com.chairbender.eclipse.object_calisthenics_analyzer;
 
+import java.io.File;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -28,17 +30,8 @@ public class ObjectCalisthenicsAnalyzerHandler extends AbstractHandler {
 	 * from the application context.
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {		            
-        try {
-        	IPath workspacePath = ResourcesPlugin.getWorkspace().getRoot().getLocation();
-			ViolationMonitor results = ObjectCalisthenicsAnalyzer.analyze(workspacePath.toFile(), "UTF-8");
-			
-			//open up a new calisthenics view and display the results
-			CalisthenicsView calisthenicsView = (CalisthenicsView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView("com.chairbender.eclipse.object_calisthenics_analyzer.views.CalisthenicsView");
-			calisthenicsView.report(results);
-			results.getAllViolations();
-		} catch (Exception e) {
-			throw new ExecutionException("failed",e);
-		}
+        //TODO: Implement wizard for picking a project, then run the inspection and report the
+		//results
 		return null;		            		           
     }
 		

@@ -5,13 +5,18 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.*;
 
+import com.chairbender.eclipse.object_calisthenics_analyzer.provider.content.CalisthenicsReportContentProvider;
+import com.chairbender.object_calisthenics_analyzer.ObjectCalisthenicsAnalyzer;
 import com.chairbender.object_calisthenics_analyzer.violation.Violation;
 import com.chairbender.object_calisthenics_analyzer.violation.ViolationMonitor;
 import com.chairbender.object_calisthenics_analyzer.violation.model.ViolationCategory;
+import com.github.javaparser.ParseException;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,38 +51,34 @@ public class CalisthenicsView extends ViewPart {
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
-	public static final String ID = "com.chairbender.eclipse.object_calisthenics_analyzer.views.CalisthenicsView";
-	private Composite parent;
-	
-	
-	/**
-	 * Displays the report in the view
-	 * @param results results to display in the view
-	 */
-	public void report(ViolationMonitor results) {
-		Map<ViolationCategory,List<Violation>> violations = results.getAllViolations(); 
-		for (ViolationCategory violationCategory : violations.keySet()) {
-			for (Violation violation : violations.get(violationCategory)) {							
-				Label violationLabel = new Label(parent,0);
-				violationLabel.setText(violation.toString());
-				parent.redraw();
-			}			
-		}				
-	}
-
-
+	public static final String ID = "com.chairbender.eclipse.object_calisthenics_analyzer.views.CalisthenicsView";	
+	private ListViewer listViewer;
 
 	@Override
-	public void createPartControl(Composite parent) {
-		// TODO Auto-generated method stub
-		this.parent = parent;
+	public void createPartControl(Composite parent) {		
+		//create a list viewer and add all violations to it
+		try {
+			ViolationMonitor results = ObjectCalisthenicsAnalyzer.analyze(new File("C:/Programming/slackbot-resistance"), "UTF-8");
+			
+			//create a list viewer and add all violations to it
+			listViewer = new ListViewer(parent);
+			listViewer.setContentProvider(new CalisthenicsReportContentProvider());
+			listViewer.setLabelProvider(new LabelProvider());
+			getSite().setSelectionProvider(listViewer);
+			listViewer.setInput(results);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
-
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
+		listViewer.getControl().setFocus();
 		
 	}
 }
