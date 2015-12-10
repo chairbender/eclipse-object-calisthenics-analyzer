@@ -1,10 +1,17 @@
 package com.chairbender.eclipse.object_calisthenics_analyzer.provider.content;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+import com.chairbender.object_calisthenics_analyzer.violation.Violation;
 import com.chairbender.object_calisthenics_analyzer.violation.ViolationMonitor;
+import com.chairbender.object_calisthenics_analyzer.violation.model.ViolationCategory;
 
 /**
  * content provider for a list of violations
@@ -29,9 +36,19 @@ public class CalisthenicsReportContentProvider implements IStructuredContentProv
 	}
 
 	@Override
-	public Object[] getElements(Object inputElement) {
+	public Object[] getElements(Object inputElement) {		
 		if (inputElement == violations) {
-			return violations.getAllViolations().values().toArray();
+			Map<ViolationCategory,List<Violation>> violationMap = violations.getAllViolations();
+			List<ViolationCategory> orderedViolations = new ArrayList<ViolationCategory>(violationMap.keySet());
+			Collections.sort(orderedViolations);
+			List<Object> result = new ArrayList<Object>();			
+			for (ViolationCategory category : orderedViolations) {
+				result.add(category.getRuleInfo().describe());
+				for (Violation violation : violationMap.get(category)) {
+					result.add(violation.toString());
+				}
+			}
+			return result.toArray();
 		} else {
 			return new Object[0];
 		}
