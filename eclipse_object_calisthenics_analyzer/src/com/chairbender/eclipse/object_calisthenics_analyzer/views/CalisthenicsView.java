@@ -27,25 +27,6 @@ import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
 
-
-/**
- * This sample class demonstrates how to plug-in a new
- * workbench view. The view shows data obtained from the
- * model. The sample creates a dummy model on the fly,
- * but a real implementation would connect to the model
- * available either in this or another plug-in (e.g. the workspace).
- * The view is connected to the model using a content provider.
- * <p>
- * The view uses a label provider to define how model
- * objects should be presented in the view. Each
- * view can present the same model objects using
- * different labels and icons, if needed. Alternatively,
- * a single label provider can be shared between views
- * in order to ensure that objects of the same type are
- * presented in the same way everywhere.
- * <p>
- */
-
 public class CalisthenicsView extends ViewPart {
 
 	/**
@@ -53,32 +34,21 @@ public class CalisthenicsView extends ViewPart {
 	 */
 	public static final String ID = "com.chairbender.eclipse.object_calisthenics_analyzer.views.CalisthenicsView";	
 	private ListViewer listViewer;
+	
+	public void updateResults(ViolationMonitor results) {			
+		listViewer.setInput(results);
+	}
 
 	@Override
 	public void createPartControl(Composite parent) {		
-		//create a list viewer and add all violations to it
-		try {
-			ViolationMonitor results = ObjectCalisthenicsAnalyzer.analyze(new File("C:/Programming/slackbot-resistance"), "UTF-8");
-			
-			//create a list viewer and add all violations to it
-			listViewer = new ListViewer(parent);
-			listViewer.setContentProvider(new CalisthenicsReportContentProvider());
-			listViewer.setLabelProvider(new LabelProvider());
-			getSite().setSelectionProvider(listViewer);
-			listViewer.setInput(results);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		listViewer = new ListViewer(parent);
+		listViewer.setContentProvider(new CalisthenicsReportContentProvider());
+		listViewer.setLabelProvider(new LabelProvider());
+		getSite().setSelectionProvider(listViewer);				
 	}
 
 	@Override
 	public void setFocus() {
-		listViewer.getControl().setFocus();
-		
+		listViewer.getControl().setFocus();		
 	}
 }
