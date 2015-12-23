@@ -45,7 +45,7 @@ public class CalisthenicsReportContentProvider implements IStructuredContentProv
 			for (ViolationCategory category : orderedViolations) {
 				result.add(category.getRuleInfo().describe());
 				for (Violation violation : violationMap.get(category)) {
-					result.add(violation.toString());
+					result.add(violation);
 				}
 			}
 			return result.toArray();

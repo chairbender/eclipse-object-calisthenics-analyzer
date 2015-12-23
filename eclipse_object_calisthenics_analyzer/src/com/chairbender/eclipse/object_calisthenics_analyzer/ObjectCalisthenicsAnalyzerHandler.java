@@ -6,6 +6,8 @@ import java.io.IOException;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -36,9 +38,8 @@ public class ObjectCalisthenicsAnalyzerHandler extends AbstractHandler {
 	 * the command has been executed, so extract extract the needed information
 	 * from the application context.
 	 */
-	public Object execute(ExecutionEvent event) throws ExecutionException {		            
-        //TODO: Implement wizard for picking a project, then run the inspection and report the
-		//results
+	public Object execute(ExecutionEvent event) throws ExecutionException {	
+		//TODO: Handle exploration of linked source code folders
 		//create a wizard to choose the project to analyze
 		Shell shell = HandlerUtil.getActiveWorkbenchWindow(event).getShell();
 		ContainerSelectionDialog dialog =
